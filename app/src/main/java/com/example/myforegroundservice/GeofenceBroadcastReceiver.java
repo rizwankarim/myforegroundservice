@@ -67,8 +67,12 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
                 EndTime = localTimeEnd;
                 notificationHelper.sendHighPriorityNotification("Exit","Exit at "+EndTime+" from the selected zone" +
                         exampleService.current_Location.toString(),MainActivity.class);
-                onExit(context);
-
+               // onExit(context);
+                Intent intent2 = new Intent("my.action.string");
+                intent2.putExtra("extra","exited");
+                intent2.putExtra("lat",exampleService.current_Location.latitude);
+                intent2.putExtra("lon",exampleService.current_Location.longitude);
+                context.sendBroadcast(intent2);
                 Toast.makeText(context,"Exit from the selected zone",Toast.LENGTH_SHORT).show();
                 break;
         }
