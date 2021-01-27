@@ -56,6 +56,7 @@ public class exampleService extends Service {
     public void onCreate() {
         super.onCreate();
         initData();
+
     }
 
     @Override
@@ -88,7 +89,7 @@ public class exampleService extends Service {
         GeofencingRequest geofenceRequest = geofenceHelper.getGeofenceRequest(geofence);
         PendingIntent pendingIntent = geofenceHelper.getPendingIntent();
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         geofencingClient.addGeofences(geofenceRequest, pendingIntent).
@@ -149,9 +150,8 @@ public class exampleService extends Service {
         geofencingClient = LocationServices.getGeofencingClient(this);
         geofenceHelper = new GeofenceHelper(this);
         locationRequest = LocationRequest.create();
-        locationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
+//        locationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
     }
-
 }

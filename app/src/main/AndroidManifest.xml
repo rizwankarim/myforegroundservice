@@ -26,6 +26,11 @@
         <service android:name=".exampleService"
             android:foregroundServiceType="location"
             android:enabled="true"/>
+
+        <receiver
+            android:name=".GeofenceBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

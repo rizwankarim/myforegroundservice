@@ -40,6 +40,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.function.LongFunction;
 
 public class GeofenceBroadcastReceiver extends BroadcastReceiver {
     public static String StartTime = "";
@@ -65,6 +66,7 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 
         switch (transitionType){
             case Geofence.GEOFENCE_TRANSITION_ENTER:
+                Log.d("Geofence Entered","Entered");
                 Toast.makeText(context,"Entering on selected zone",Toast.LENGTH_SHORT).show();
                 Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+5:00"));
                 Date currentLocalTime = cal.getTime();
