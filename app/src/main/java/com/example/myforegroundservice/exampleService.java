@@ -51,6 +51,7 @@ public class exampleService extends Service {
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest locationRequest;
     private LocationSettingsRequest locationSettingsRequest;
+    public static LatLng current_Location;
 
     @Override
     public void onCreate() {
@@ -80,6 +81,8 @@ public class exampleService extends Service {
             Log.d("Locations", currentLocation.getLatitude() + "," + currentLocation.getLongitude());
             LatLng latLng= new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
             addGeofence(latLng, 300);
+            current_Location=latLng;
+
             //Share/Publish Location
         }
     };
