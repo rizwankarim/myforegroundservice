@@ -5,12 +5,15 @@ import android.app.IntentService;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -32,6 +35,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import static com.example.myforegroundservice.App.CHANNEL_ID;
@@ -42,6 +47,7 @@ public class exampleService extends Service {
     private GeofenceHelper geofenceHelper;
     private String GEOFENCE_ID = "SOME_GEOFENCE_ID";
     private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 3000;
+    private static final int NO_INITIAL_TRIGGER = 0;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest locationRequest;
     private LocationSettingsRequest locationSettingsRequest;
@@ -61,8 +67,6 @@ public class exampleService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         prepareNotification();
-        geofencingClient = LocationServices.getGeofencingClient(this);
-        geofenceHelper = new GeofenceHelper(this);
         startLocationUpdates();
         return START_STICKY;
     }
@@ -74,19 +78,17 @@ public class exampleService extends Service {
             Location currentLocation = locationResult.getLastLocation();
             Log.d("Locations", currentLocation.getLatitude() + "," + currentLocation.getLongitude());
             LatLng latLng= new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
-            addGeofence(latLng,100);
+            addGeofence(latLng, 300);
             //Share/Publish Location
         }
     };
 
     private void addGeofence(LatLng latLng, float radius) {
-        Geofence geofence = geofenceHelper.getGeofence(GEOFENCE_ID, latLng, radius, Geofence.GEOFENCE_TRANSITION_ENTER
-                | Geofence.GEOFENCE_TRANSITION_DWELL | Geofence.GEOFENCE_TRANSITION_EXIT);
+        Geofence geofence = geofenceHelper.getGeofence(GEOFENCE_ID, latLng, radius, Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_DWELL | Geofence.GEOFENCE_TRANSITION_EXIT);
         GeofencingRequest geofenceRequest = geofenceHelper.getGeofenceRequest(geofence);
         PendingIntent pendingIntent = geofenceHelper.getPendingIntent();
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
             return;
         }
         geofencingClient.addGeofences(geofenceRequest, pendingIntent).
@@ -144,12 +146,12 @@ public class exampleService extends Service {
     }
 
     private void initData() {
+        geofencingClient = LocationServices.getGeofencingClient(this);
+        geofenceHelper = new GeofenceHelper(this);
         locationRequest = LocationRequest.create();
         locationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
     }
 
 }
