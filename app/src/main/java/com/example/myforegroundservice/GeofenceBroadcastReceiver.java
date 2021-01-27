@@ -74,21 +74,21 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
                 date.setTimeZone(TimeZone.getTimeZone("GMT+5:00"));
                 String localTimeNow = date.format(currentLocalTime);
                 StartTime = localTimeNow;
-                    notificationHelper.sendHighPriorityNotification("Entry","Entering on selected zone",MainActivity.class);
+                notificationHelper.sendHighPriorityNotification("Entry","Entering on selected zone",MainActivity.class);
               //  getCurrentLocation(context);
                 break;
+
             case Geofence.GEOFENCE_TRANSITION_DWELL:
                 Toast.makeText(context,"In the selected zone",Toast.LENGTH_SHORT).show();
                 notificationHelper.sendHighPriorityNotification("Dwell","In the selected zone",MainActivity.class);
                 break;
-            case Geofence.GEOFENCE_TRANSITION_EXIT:
 
-                onExit(context);
+            case Geofence.GEOFENCE_TRANSITION_EXIT:
                 notificationHelper.sendHighPriorityNotification("Exit","Exit from the selected zone",MainActivity.class);
+                onExit(context);
                 Toast.makeText(context,"Exit from the selected zone",Toast.LENGTH_SHORT).show();
                 break;
         }
-
     }
 
     private void onExit(Context context){
