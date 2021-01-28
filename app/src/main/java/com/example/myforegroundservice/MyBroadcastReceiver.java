@@ -41,11 +41,11 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             Double lon=intent.getExtras().getDouble("lon");
             if(state.equals("exited"))
             {
-                Toast.makeText(context, "Lat/Long : "+lat+"/"+lon, Toast.LENGTH_SHORT).show();
-                Toast.makeText(context, "Add geofence here", Toast.LENGTH_SHORT).show();
                 // add lat/lng geofence method
                 LatLng latLng=new LatLng(lat,lon);
                 addGeofence(context,latLng,100);
+                Toast.makeText(context, "Lat/Long : "+lat+"/"+lon, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Add geofence here", Toast.LENGTH_SHORT).show();
 
             }else
                 {
