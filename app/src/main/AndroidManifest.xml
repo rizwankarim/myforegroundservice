@@ -32,12 +32,6 @@
             android:enabled="true"
             android:exported="true" />
 
-        <receiver android:name=".MyBroadcastReceiver" android:enabled="true">
-            <intent-filter>
-                <action android:name="my.action.string" />
-                <!-- and some more actions if you want -->
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

@@ -64,6 +64,7 @@ public class exampleService extends Service {
     public void onDestroy() {
         super.onDestroy();
         mFusedLocationClient.removeLocationUpdates(locationCallback);
+        geofencingClient.removeGeofences(geofenceHelper.pendingIntent);
     }
 
     @Override
@@ -80,7 +81,7 @@ public class exampleService extends Service {
             Location currentLocation = locationResult.getLastLocation();
             Log.d("Locations", currentLocation.getLatitude() + "," + currentLocation.getLongitude());
             LatLng latLng= new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
-            addGeofence(latLng, 300);
+            addGeofence(latLng, 100);
             current_Location=latLng;
 
             //Share/Publish Location
@@ -153,7 +154,7 @@ public class exampleService extends Service {
         geofencingClient = LocationServices.getGeofencingClient(this);
         geofenceHelper = new GeofenceHelper(this);
         locationRequest = LocationRequest.create();
-//        locationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
+        //locationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
     }
