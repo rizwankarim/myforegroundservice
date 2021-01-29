@@ -53,8 +53,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 }
         }
     }
-
-
     private void addGeofence(Context context,LatLng latLng, float radius) {
         Geofence geofence = geofenceHelper.getGeofence(GEOFENCE_ID, latLng, radius, Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_DWELL | Geofence.GEOFENCE_TRANSITION_EXIT);
         GeofencingRequest geofenceRequest = geofenceHelper.getGeofenceRequest(geofence);
