@@ -83,9 +83,9 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
                 break;
 
             case Geofence.GEOFENCE_TRANSITION_EXIT:
-                onExit(context);
                 notificationHelper.sendHighPriorityNotification("Exit","Exit from the selected zone",MainActivity.class);
                 Toast.makeText(context,"Exit from the selected zone",Toast.LENGTH_SHORT).show();
+                onExit(context);
                 break;
         }
 
@@ -100,6 +100,7 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
         EndTime = localTimeLater;
         min = getMinutes(context, StartTime, EndTime);
         locationService.startLocationUpdates();
+
         //checkCondition(context, min);
     }
 
