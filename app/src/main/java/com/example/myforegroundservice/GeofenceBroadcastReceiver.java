@@ -42,22 +42,13 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class GeofenceBroadcastReceiver extends BroadcastReceiver {
-    private GeofencingClient geofencingClient;
-    private GeofenceHelper geofenceHelper;
+
     public static String StartTime = "";
     String EndTime = "";
     int min;
     String address;
-
-    private String GEOFENCE_ID = "SOME_GEOFENCE_ID";
     @Override
     public void onReceive(Context context, Intent intent) {
-        // TODO: This method is called when the BroadcastReceiver is receiving
-        // an Intent broadcast.
-        //Toast.makeText(context,"Geofence triggered...",Toast.LENGTH_SHORT).show();
-
-        geofencingClient = LocationServices.getGeofencingClient(context);
-        geofenceHelper = new GeofenceHelper(context);
 
         NotificationHelper notificationHelper= new NotificationHelper(context);
 
