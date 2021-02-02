@@ -8,28 +8,19 @@
     android:gravity="center"
     tools:context=".MainActivity">
 
-    <EditText
+    <Button
+        android:id="@+id/start_Service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/input"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:hint="input"/>
+        android:text="Start Foreground" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:text="Start Foreground"
-        android:onClick="StartService"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:text="Stop Foreground"
-        android:onClick="StopService"/>
+        android:text="Stop Foreground" />
 
 </LinearLayout>

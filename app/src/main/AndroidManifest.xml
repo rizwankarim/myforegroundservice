@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".App"
@@ -23,15 +23,13 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".exampleService"
+        <service android:name=".LocationService"
             android:foregroundServiceType="location"
             android:enabled="true"/>
 
-        <receiver
-            android:name=".GeofenceBroadcastReceiver"
+        <receiver android:name=".GeofenceBroadcastReceiver"
             android:enabled="true"
-            android:exported="true" />
-
+            android:exported="true"/>
     </application>
 
 </manifest>
