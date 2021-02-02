@@ -44,6 +44,7 @@ import java.util.TimeZone;
 public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 
     public static String StartTime = "";
+    LocationService locationService;
     String EndTime = "";
     int min;
     String address;
@@ -51,6 +52,7 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         NotificationHelper notificationHelper= new NotificationHelper(context);
+        locationService= new LocationService();
 
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         if(geofencingEvent.hasError()){
@@ -89,7 +91,7 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 
     }
 
-    private void onExit(Context context){
+    public void onExit(Context context){
         Calendar cal2 = Calendar.getInstance(TimeZone.getTimeZone("GMT+5:00"));
         Date currentLocalTime2 = cal2.getTime();
         DateFormat date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -97,6 +99,7 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
         String localTimeLater = date2.format(currentLocalTime2);
         EndTime = localTimeLater;
         min = getMinutes(context, StartTime, EndTime);
+        locationService.startLocationUpdates();
         //checkCondition(context, min);
     }
 
